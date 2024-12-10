@@ -70,3 +70,14 @@ button:focus-visible {
     background-color: #f9f9f9;
   }
 }
+
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+}
+
+button {
+  border-radius: 5px;
+  font-size: 1em;
+  padding: 0.5em 1em;
+}

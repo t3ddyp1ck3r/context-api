@@ -1,7 +1,14 @@
-/* eslint-disable react/prop-types */
+import { useState } from "react";
+import { CountContext } from "./CountContext";
 
 const CountContextProvider = ({ children }) => {
-	return <div> {children}</div>
-}
+    const [count, setCount] = useState(0); // Initialize count state
 
-export default CountContextProvider
+    return (
+        <CountContext.Provider value={{ count, setCount }}>
+            {children}
+        </CountContext.Provider>
+    );
+};
+
+export default CountContextProvider;

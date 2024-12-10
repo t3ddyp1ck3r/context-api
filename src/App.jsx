@@ -1,40 +1,63 @@
-import "./App.css"
+import { useContext } from "react";
+import { CountContext } from "./context/CountContext";
+import { UserContext } from "./context/UserContext";
+import HeaderComp from "./components/HeaderComp";
+import ButtonComp from "./components/ButtonComp";
+import LittleSpan from "./components/LittleSpan";
 
-import ButtonComp from "./components/ButtonComp"
-// import { useContext } from "react"
-//import { CountContext } from "./context/CountContext"
-import HeaderComp from "./components/HeaderComp"
+const App = () => {
+    const { count, setCount } = useContext(CountContext); // Access count context
+    const { user, setUser } = useContext(UserContext); // Access user context
 
-function App() {
-	//const { count, setCount } = useContext(CountContext)
+    // Increment count
+    const handleClick = () => {
+        setCount((prev) => prev + 1);
+    };
 
-	const user = null // change this to later to the use context user ❗
+    // Handle login/logout
+    const handleLogin = () => {
+        setUser((prev) =>
+            prev
+                ? null
+                : { email: "someemail@test.net", userName: "Test User" }
+        );
+    };
 
-	// const handleClick = () => {
-	// 	setCount((prev) => prev + 1)
-	// }
+    return (
+        <div
+            className="app"
+            style={{
+                display: "flex",
+                flexDirection: "column",
+                gap: "1em",
+                backgroundColor: user ? "#204d21" : "#4d0221", // Green for logged-in, red otherwise
+                padding: "2em",
+                color: "white",
+                minHeight: "100vh",
+            }}
+        >
+            <HeaderComp />
+            <ButtonComp />
+            <LittleSpan />
+            <button
+                onClick={handleLogin}
+                style={{
+                    padding: "1em",
+                    backgroundColor: user ? "#a1cf9f" : "#cf9fa1", // Green for logged-in, red otherwise
+                    color: "black",
+                    border: "none",
+                    cursor: "pointer",
+                }}
+            >
+                {user ? "Logout" : "Login"}
+            </button>
+            {user && (
+                <div className="alert" style={{ textAlign: "center" }}>
+                    You are now logged in !!!
+                </div>
+            )}
+        </div>
+    );
+};
 
-	//const handleLogIn = () => {
-	// }
-
-	return (
-		<main
-			className="app"
-			style={{
-				display: "flex",
-				flexDirection: "column",
-				gap: "1em",
-				backgroundColor: user ? "#024d1021" : "#4d020221",
-				padding: ".5em",
-			}}
-		>
-			<HeaderComp />
-			<ButtonComp text="add" onclick={() => true} />
-			Your result is dynamic count here ...
-			{/* You'll need another button comp here later */}
-			{user && <div className="alert">You are now logged in !!!</div>}
-		</main>
-	)
-}
-
-export default App
+export default App;

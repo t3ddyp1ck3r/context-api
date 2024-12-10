@@ -1,12 +1,15 @@
-import LittleSpan from "./LittleSpan"
+import { useContext } from "react";
+import { CountContext } from "../context/CountContext";
 
 const HeaderComp = () => {
-	return (
-		<header>
-			<h1>This is the Context API</h1>
-			<LittleSpan />
-		</header>
-	)
-}
+    const { count } = useContext(CountContext); // Consume count context
 
-export default HeaderComp
+    return (
+        <header>
+            <h1>Header Component</h1>
+            <p>Current Count: {count}</p>
+        </header>
+    );
+};
+
+export default HeaderComp;
